@@ -1,0 +1,91 @@
+CYGNO04 v4 gas and sensitive geometry
+
+All lengths are millimetres. The default geometry is now
+../geometry/cygno04_v4_ASCII, with the reviewed full-cavity gas geometry.
+To select original v3 with its legacy gas and sensitive boxes:
+  CYGNO_GEOMETRY_PATH=../geometry/cygno_04_v3_ASCII ./CYGNO run.mac
+Paths are relative to the process working directory. The variable overrides
+only the startup CAD path; both updated CYGNO04 branch implementations support
+v3 and v4 layouts. The eight required runtime STLs are N66, FieldCage, GEM, PEBase, PMMA,
+Cu_radiopure, Cu_nonradiopure and GasBoundary. Generation scripts stay under
+tools/.
+
+CAD geometry is optional. If that directory is absent, CYGNO runs a nominal
+analytic detector: a 660 x 920 x 1048 mm gas box and two 500 x 800 x 510 mm
+sensitive boxes centred at Z=+255.030 and -255.030 mm. A 520 x 820 x 0.060 mm
+cathode is placed at Z=0. Six 509 x 809 x 0.060 mm rectangular GEM foils have
+centres Z=+/-(510.060, 512.120, 514.180) mm, leaving 510 mm between each
+cathode face and the nearest GEM face. Cathode and GEMs use the same effective
+GEM material as CAD mode. Gas mass excludes these material daughters; the
+reported GEM mass includes all six foils.
+This simple gas box is the nominal envelope proposed for the analytic mode;
+it does not reproduce the complete PMMA cavity or its gas inventory. N66,
+field cage, PMMA walls, PE base and CAD copper shields require the STL files.
+Cameras, laboratory and analytic shielding keep their definitions.
+The startup log identifies the selected mode.
+If the CAD directory exists, all required meshes must be present and readable;
+an incomplete directory produces an explicit error instead of falling back.
+The following gas and active-volume descriptions apply to v4 CAD mode.
+
+GasBoundary.stl follows the outer faces/contours of the main PMMA walls and
+side covers. External fitting bores, feet and protruding optical frames are
+outside that boundary. Geant4 subtracts the loaded PMMA.stl solid directly from
+GasBoundary and assigns CYGNO_gas to the remaining volume. N66, FieldCage, GEM
+and cathode daughters displace that gas. All enclosed empty cells inside this
+boundary are included. This is not an inference that isolated CAD pockets share
+the gas plumbing of the main chamber.
+
+GasBoundary and PMMA are in the original PMMA CAD frame:
+  detector X=CAD X; detector Y=CAD Z; detector Z=-CAD Y+1.39874923.
+N66, FieldCage, GEM and PE keep the legacy frame:
+  detector X=CAD X+470; detector Y=CAD Z; detector Z=-CAD Y.
+
+Geant4 constructs each sensitive solid directly as a 500 x 800 x 510 mm
+box minus the loaded N66 and field-cage solids, transformed into that box's
+local coordinates. Their centres are Z=+255.030 and -255.030 mm, so they extend
+from each cathode face to the first GEM face. No active-gas STL or extra
+scoring clearance is required. Changing N66 or the cage updates these cuts
+automatically. Both sensitive regions use CYGNO_gas; the remaining chamber
+gas transports particles without sensitive scoring. Physical names remain
+CYGNO_gas (copy 0 and 1); the mother is TPC_gas. The two active logical names
+remain CYGNO_log and CYGNO_negative_log.
+
+The current effective field cage and its transport material are unchanged.
+N66.stl is the supplied minimal body with its 60-um seating planes restored,
+matching field-cage clearance cuts and the lower-face rounding correction.
+PMMA.stl and Cu_radiopure.stl use the accepted minimal exports. Source snapshots
+and one-off N66 repair records are archived outside the runtime directory.
+Gas and clearance changes do not assign isotope activities or change physics.
+
+Approximate volumes:
+  PMMA cavity before internal parts: about 779 L.
+  Chamber gas after material displacement: about 746 L.
+  Active gas per side: about 203.894 L (nominal bounding box: 204 L).
+The gas total reported by Geant4 is a Boolean-solid volume estimate.
+TPC_log mass alone excludes the active gas daughters; TPC_total_gas_mass and
+TPC_total_gas_dens account for the complete gas inventory.
+
+For future gas sources, /gps/pos/confine TPC_gas samples only non-active gas,
+because GPS checks the deepest physical volume. To sample all gas uniformly,
+combine TPC_gas and CYGNO_gas sources weighted by their gas volumes/masses, or
+use a generator accepting all gas regions. Activities and normalization must
+be specified separately.
+
+Sensitive gas needs no mesh regeneration after changing N66 or the field cage.
+To cut field-cage clearance into another N66 export, requires Python 3 with
+numpy, trimesh and manifold3d (validated with 3.5.4). From the repository root:
+  python3 tools/build_gas_geometry.py --geometry-dir cygno04_v4_ASCII --source-n66 /path/to/source_N66.stl --cut-n66 --skip-preview --output-dir /path/to/generated
+Inspect and validate N66_clearance.stl before replacing N66.stl. This operation
+does not restore seating planes lost by CAD mesh decimation. Omitting
+--skip-preview also builds a visualization-only GasEnvelope_preview; it is not
+used by Geant4.
+
+GasBoundary is generated from the external PMMA(2).FCStd CAD source by
+tools/build_gas_boundary.py. CAD/STEP sources are not needed to run Geant4.
+To regenerate the boundary:
+  CYGNO_PMMA_CAD=/path/to/source.FCStd FreeCADCmd tools/build_gas_boundary.py
+ Output defaults to generated_gas_boundary under the
+geometry repository. The script is specific to the supplied CAD object names
+and main-wall dimensions; revise it if those CAD boundaries change.
+Coordinate conventions are listed above. Source hashes are preserved with the
+external validation records.
