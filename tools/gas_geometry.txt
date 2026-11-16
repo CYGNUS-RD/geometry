@@ -66,13 +66,15 @@ copper. The PMT head touches the window; the socket stays on the PMT. Each
 socket assembly (Hamamatsu catalogue TPMZ0002E02, p. 93) has a Ø26 boss from
 1049.1, a 44 x 30 mm flange at 1056.1-1057.1 and a Ø28 potted housing ending
 at 1092.1, 43.0 mm from the boss face; its 450 mm cables are not modelled.
-Both copper meshes have a Ø47 socket counterbore to |Y|=1058.1 and a Ø29.8
-bore for the housing to 1093.1. PMMA.stl also holds six 214.5 x 140.5 x 3 mm camera windows
+A Ø47 hole runs from the slab outer face (|Y|=1050) out through both copper
+meshes (outer faces 1110 non-radiopure, 1130 radiopure), so each socket,
+flange included, can be inserted and removed from outside. PMMA.stl also
+holds six 214.5 x 140.5 x 3 mm camera windows
 (R7.75 corners) at the slab/protrusion interface, |Y| 1048.5-1051.5, in a
 recess with 0.1 mm side and 0.05 mm face clearance. These parts add 1.63 kg
 to the PMMA mass. Cu_nonradiopure also closes the band between the radiopure
 protrusion (|z|<=395) and its opening edge (|z|~425), keeping the outer-row
-Ø30 PMT bores and socket counterbores open. On each end, the former 27 x 240 mm
+socket holes open. On each end, the former 27 x 240 mm
 slab slot at (x,z)=(-300,-255) is now a radiopure oval protrusion (47 x 260 mm
 stadium, |Y| 1014-1130) with 9 x Ø12.7 holes through it on x=-300, z=-360 to
 -150; the non-radiopure shell keeps 0.1 mm clearance around it, as around the
