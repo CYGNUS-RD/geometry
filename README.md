@@ -1,7 +1,7 @@
 # Geometry
 
 - `cygno_04_v3_ASCII/`: original CYGNO04 geometry; optional.
-- `cygno04_v4_ASCII/`: default; updated N66, PMMA (with PMT and camera windows), copper, GEM alignment and full-cavity gas; 500 × 800 × 510 mm sensitive envelope per side. Includes the 16 PMTs (`PMT.stl`) and sockets (`PMT_socket.stl`).
+- `cygno04_v4_ASCII/`: default; updated N66, PMMA (with PMT and camera windows), copper, GEM alignment and full-cavity gas; 500 × 800 × 510 mm sensitive envelope per side. Includes the 16 PMTs (`PMT.stl`, Hamamatsu R7378A) and socket assemblies (`PMT_socket.stl`, Hamamatsu E2924-500).
 
 On the updated CYGNO04 branches, select legacy v3 before startup:
 ```sh

@@ -58,14 +58,16 @@ and one-off N66 repair records are archived outside the runtime directory.
 Gas and clearance changes do not assign isotope activities or change physics.
 
 PMTs (copper/PMMA CAD frame). PMT.stl (16 Hamamatsu R7378A) and PMT_socket.stl
-(E678-14C) are placed by CYGNO-MC as cad_PMT_physical and
-cad_PMTSocket_physical, with placeholder materials until their densities and
-masses are verified. Along each PMT axis, from the detector outwards
-(CAD |Y|): PMMA window 1003-1006, PMMA flange
+(16 Hamamatsu E2924-500 socket assemblies) are placed by CYGNO-MC as
+cad_PMT_physical and cad_PMTSocket_physical. Along each PMT axis, from the
+detector outwards (CAD |Y|): PMMA window 1003-1006, PMMA flange
 1006-1014 (Ø85, Ø35 bore, 6 x Ø6.5 on Ø60), radiopure slab 1014-1050, outer
-copper. The PMT head touches the window; the socket stays on the PMT. Both
-copper meshes have a Ø47 socket counterbore to |Y|=1058.1 and a Ø29.8 pin bore
-to 1067.1. PMMA.stl also holds six 214.5 x 140.5 x 3 mm camera windows
+copper. The PMT head touches the window; the socket stays on the PMT. Each
+socket assembly (Hamamatsu catalogue TPMZ0002E02, p. 93) has a Ø26 boss from
+1049.1, a 44 x 30 mm flange at 1056.1-1057.1 and a Ø28 potted housing ending
+at 1092.1, 43.0 mm from the boss face; its 450 mm cables are not modelled.
+Both copper meshes have a Ø47 socket counterbore to |Y|=1058.1 and a Ø29.8
+bore for the housing to 1093.1. PMMA.stl also holds six 214.5 x 140.5 x 3 mm camera windows
 (R7.75 corners) at the slab/protrusion interface, |Y| 1048.5-1051.5, in a
 recess with 0.1 mm side and 0.05 mm face clearance. These parts add 1.63 kg
 to the PMMA mass. Cu_nonradiopure also closes the band between the radiopure
