@@ -6,9 +6,9 @@ To select original v3 with its legacy gas and sensitive boxes:
   CYGNO_GEOMETRY_PATH=../geometry/cygno_04_v3_ASCII ./CYGNO run.mac
 Paths are relative to the process working directory. The variable overrides
 only the startup CAD path; both updated CYGNO04 branch implementations support
-v3 and v4 layouts. The eight required runtime STLs are N66, FieldCage, GEM, PEBase, PMMA,
-Cu_radiopure, Cu_nonradiopure and GasBoundary. Generation scripts stay under
-tools/.
+v3 and v4 layouts. The ten required runtime STLs are N66, FieldCage, GEM, PEBase, PMMA,
+Cu_radiopure, Cu_nonradiopure, GasBoundary, PMT and PMT_socket. Generation
+scripts stay under tools/.
 
 CAD geometry is optional. If that directory is absent, CYGNO runs a nominal
 analytic detector: a 660 x 920 x 1048 mm gas box and two 500 x 800 x 510 mm
@@ -53,9 +53,32 @@ remain CYGNO_log and CYGNO_negative_log.
 The current effective field cage and its transport material are unchanged.
 N66.stl is the supplied minimal body with its 60-um seating planes restored,
 matching field-cage clearance cuts and the lower-face rounding correction.
-PMMA.stl and Cu_radiopure.stl use the accepted minimal exports. Source snapshots
+PMMA.stl and Cu_radiopure.stl start from the accepted minimal exports. Source snapshots
 and one-off N66 repair records are archived outside the runtime directory.
 Gas and clearance changes do not assign isotope activities or change physics.
+
+PMTs (copper/PMMA CAD frame). PMT.stl (16 Hamamatsu R7378A) and PMT_socket.stl
+(16 Hamamatsu E2924-500 socket assemblies) are placed by CYGNO-MC as
+cad_PMT_physical and cad_PMTSocket_physical. Along each PMT axis, from the
+detector outwards (CAD |Y|): PMMA window 1003-1006, PMMA flange
+1006-1014 (Ø85, Ø35 bore, 6 x Ø6.5 on Ø60), radiopure slab 1014-1050, outer
+copper. The PMT head touches the window; the socket stays on the PMT. Each
+socket assembly (Hamamatsu catalogue TPMZ0002E02, p. 93) has a Ø26 boss from
+1049.1, a 44 x 30 mm flange at 1056.1-1057.1 and a Ø28 potted housing ending
+at 1092.1, 43.0 mm from the boss face; its 450 mm cables are not modelled.
+A Ø47 hole runs from the slab outer face (|Y|=1050) out through both copper
+meshes (outer faces 1110 non-radiopure, 1130 radiopure), so each socket,
+flange included, can be inserted and removed from outside. PMMA.stl also
+holds six 214.5 x 140.5 x 3 mm camera windows
+(R7.75 corners) at the slab/protrusion interface, |Y| 1048.5-1051.5, in a
+recess with 0.1 mm side and 0.05 mm face clearance. These parts add 1.63 kg
+to the PMMA mass. Cu_nonradiopure also closes the band between the radiopure
+protrusion (|z|<=395) and its opening edge (|z|~425), keeping the outer-row
+socket holes open. On each end, the former 27 x 240 mm
+slab slot at (x,z)=(-300,-255) is now a radiopure oval protrusion (47 x 260 mm
+stadium, |Y| 1014-1130) with 9 x Ø12.7 holes through it on x=-300, z=-360 to
+-150; the non-radiopure shell keeps 0.1 mm clearance around it, as around the
+camera protrusion.
 
 Approximate volumes:
   PMMA cavity before internal parts: about 779 L.

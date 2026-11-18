@@ -1,10 +1,10 @@
 # Geometry
 
 - `cygno_04_v3_ASCII/`: original CYGNO04 geometry; optional.
-- `cygno04_v4_ASCII/`: default; updated N66, PMMA, copper, GEM alignment and full-cavity gas; 500 × 800 × 510 mm sensitive envelope per side.
+- `cygno04_v4_ASCII/`: default; updated N66, PMMA (with PMT and camera windows), copper, GEM alignment and full-cavity gas; 500 × 800 × 510 mm sensitive envelope per side. Includes the 16 PMTs (`PMT.stl`, Hamamatsu R7378A) and socket assemblies (`PMT_socket.stl`, Hamamatsu E2924-500).
 
 On the updated CYGNO04 branches, select legacy v3 before startup:
 ```sh
 CYGNO_GEOMETRY_PATH=../geometry/cygno_04_v3_ASCII ./CYGNO run.mac
 ```
-Keep all eight required v4 STL files together. Sensitive cuts follow the loaded parts directly. Generation notes: [tools/gas_geometry.txt](tools/gas_geometry.txt).
+Keep all ten required v4 STL files together. Sensitive cuts follow the loaded parts directly. Generation notes: [tools/gas_geometry.txt](tools/gas_geometry.txt).
